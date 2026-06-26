@@ -1,0 +1,24 @@
+{% extends "analyzer/base.html" %}
+{% block title %}Error — GitHub Analyzer{% endblock %}
+
+{% block content %}
+<section class="error-page">
+  <div class="error-card">
+
+    <h2>Repository not found or is private</h2>
+    <p>We couldn't access the URL provided. Please verify the link and ensure the repository is public.</p>
+
+    <div class="error-tips">
+      <div class="error-tip">
+        <p><strong>Check Spelling:</strong> Double-check the owner and repository names in the URL.</p>
+      </div>
+      <div class="error-tip">
+        <p><strong>Visibility:</strong> Private repositories require authentication which is not currently supported.</p>
+      </div>
+    </div>
+
+    <a href="/" class="btn-analyze">← Go Back to Search</a>
+
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}GitHub Analyzer{% endblock %}</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'analyzer/css/style.css' %}" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="/" class="navbar-brand">GitHub Analyzer</a>
+  </nav>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <span>© 2024 GitHub Repository Analyzer</span>
+    <span>Built for Developers</span>
+  </footer>
+
+</body>
+</html>

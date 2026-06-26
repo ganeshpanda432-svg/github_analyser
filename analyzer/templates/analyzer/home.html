@@ -1,0 +1,51 @@
+{% extends "analyzer/base.html" %}
+{% block title %}GitHub Analyzer{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+  <h1>Analyze any GitHub Repository</h1>
+  <p class="hero-sub">
+    Get insights from a public GitHub repository.
+  </p>
+
+  <form method="POST" action="/analyze/" class="search-form">
+    {% csrf_token %}
+    <input type="text" name="repo_url" placeholder="https://github.com/owner/repo" class="search-input" required />
+    <button type="submit" class="btn-analyze">Analyze</button>
+  </form>
+
+  <div class="chips">
+    <span class="chip">Commit Activity</span>
+    <span class="chip">Language Breakdown</span>
+    <span class="chip">Top Contributors</span>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<section class="cards-section">
+  <div class="cards">
+    <div class="card">
+      <h3>Detailed History</h3>
+      <p>View commit trends over the last 12 weeks to understand project momentum.</p>
+    </div>
+    <div class="card">
+      <h3>Tech Stack</h3>
+      <p>Identify languages used in any project with precise percentage breakdowns.</p>
+    </div>
+    <div class="card">
+      <h3>Team Insights</h3>
+      <p>See who is driving the project forward with our contributor leaderboard.</p>
+    </div>
+  </div>
+</section>
+
+<section class="protip-section">
+  <div class="protip">
+    <span class="protip-label">Pro Tip</span>
+    <p>You can analyze any public repository. Private repositories require an authorized session.</p>
+  </div>
+</section>
+
+{% endblock %}

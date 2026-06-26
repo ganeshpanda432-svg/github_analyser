@@ -1,0 +1,102 @@
+{% extends "analyzer/base.html" %}
+{% block title %}{{ repo_name }} — GitHub Analyzer{% endblock %}
+
+{% block content %}
+<section class="results-page">
+
+  <!-- Repo Header -->
+  <div class="repo-header">
+    <h2 class="repo-name">{{ repo_name }}</h2>
+    <p class="repo-desc">{{ description }}</p>
+  </div>
+
+  <!-- Badges -->
+  <div class="badges">
+    <span class="badge">Stars: <strong>{{ stars }}</strong></span>
+    <span class="badge">Forks: <strong>{{ forks }}</strong></span>
+    <span class="badge">Issues: <strong>{{ open_issues }}</strong></span>
+    <span class="badge">Language: <strong>{{ language }}</strong></span>
+  </div>
+
+  <!-- Charts -->
+  <div class="charts-row">
+
+    <!-- Commit Activity -->
+    <div class="chart-card">
+      <h3 class="chart-title">Commit Activity</h3>
+      <p class="chart-subtitle">Commits per week (Last 12 weeks)</p>
+      {% if weekly_commits %}
+      <div class="bar-chart">
+        {% for week in weekly_commits %}
+        <div class="bar-col">
+          <!-- <div class="bar" style="height: {{ week.height_pct }}%" title="{{ week.total }} commits"></div> -->
+          <span class="bar-label">{{ week.label }}</span>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="no-data">No commit data available.</p>
+      {% endif %}
+    </div>
+
+    <!-- Language Breakdown -->
+    <div class="chart-card">
+      <h3 class="chart-title">Language Breakdown</h3>
+      <p class="chart-subtitle">Percentage of codebase</p>
+      {% if languages %}
+      <div class="donut-wrapper">
+        <svg viewBox="0 0 120 120" class="donut-svg">
+          <circle cx="60" cy="60" r="40" fill="transparent" stroke="#1f2937" stroke-width="20" />
+          {% for lang in languages %}
+          <circle cx="60" cy="60" r="40" fill="transparent" stroke="{{ lang.color }}" stroke-width="20"
+            stroke-dasharray="{{ lang.dash_array }}" stroke-dashoffset="{{ lang.dash_offset }}" />
+          {% endfor %}
+        </svg>
+      </div>
+      <div class="lang-legend">
+        {% for lang in languages %}
+        <span class="legend-item">
+          <!-- <span class="legend-dot" style="background:{{ lang.color }}"></span> -->
+          {{ lang.name }} <span class="lang-pct">{{ lang.percentage }}%</span>
+        </span>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="no-data">Language data not available.</p>
+      {% endif %}
+    </div>
+
+  </div>
+
+  <!-- Top Contributors -->
+  <div class="contrib-section">
+    <h3 class="section-title">Top Contributors</h3>
+    <div class="contrib-table">
+      <div class="contrib-header">
+        <span>Rank</span>
+        <span>Contributor</span>
+        <span>Contributions</span>
+      </div>
+      {% for person in contributors %}
+      <div class="contrib-row">
+        <span class="contrib-rank">#{{ person.rank }}</span>
+        <span class="contrib-name">
+          <img src="{{ person.avatar }}" alt="{{ person.login }}" class="avatar" />
+          {{ person.login }}
+        </span>
+        <span class="contrib-count">
+          <strong>{{ person.contributions }}</strong> commits
+        </span>
+      </div>
+      {% empty %}
+      <p class="no-data">No contributor data available.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="back-btn">
+    <a href="/" class="btn-back">← Analyze Another Repository</a>
+  </div>
+
+</section>
+{% endblock %}
