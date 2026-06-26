@@ -6,9 +6,8 @@ import json
 from django.shortcuts import render, redirect
 
 
-# ──────────────────────────────────────────────
 # Helper: fetch JSON from GitHub API
-# ──────────────────────────────────────────────
+
 def github_get(url):
     """
     Makes a GET request to the GitHub API and returns parsed JSON.
@@ -30,9 +29,8 @@ def github_get(url):
         return None
 
 
-# ──────────────────────────────────────────────
 # Helper: parse owner and repo from a GitHub URL
-# ──────────────────────────────────────────────
+
 def parse_github_url(url):
     """
     Accepts:
@@ -56,23 +54,23 @@ def parse_github_url(url):
     return None, None
 
 
-# ──────────────────────────────────────────────
+
 # View: Home page
-# ──────────────────────────────────────────────
+
 def home(request):
     return render(request, 'analyzer/home.html')
 
 
-# ──────────────────────────────────────────────
+
 # View: Error page
-# ──────────────────────────────────────────────
+
 def error_page(request):
     return render(request, 'analyzer/error.html')
 
 
-# ──────────────────────────────────────────────
+
 # View: Analyze a repository
-# ──────────────────────────────────────────────
+
 def analyze(request):
     # Only accept POST (form submission from home page)
     if request.method != 'POST':
@@ -115,7 +113,7 @@ def analyze(request):
                 'height_pct': pct,
             })
 
-    # ── 3. Fetch language breakdown ───────────────
+    # ── 3. Fetch language breakdown 
     lang_data = github_get(
         f'https://api.github.com/repos/{owner}/{repo}/languages'
     )
@@ -134,7 +132,7 @@ def analyze(request):
             })
         languages.sort(key=lambda x: x['percentage'], reverse=True)
 
-        # ── Donut SVG math ──────────────────────────────────
+        # ── Pie SVG math 
         # r=40, circumference = 2 * pi * 40 = 251.33
         circumference = 251.33
         accumulated = 0.0
@@ -145,7 +143,7 @@ def analyze(request):
             lang['dash_offset'] = round(circumference - accumulated, 2)
             accumulated += dash
 
-    # ── 4. Fetch top contributors ─────────────────
+    # ── 4. Fetch top contributors 
     contrib_data = github_get(
         f'https://api.github.com/repos/{owner}/{repo}/contributors?per_page=5'
     )
@@ -160,7 +158,7 @@ def analyze(request):
                 'contributions': person.get('contributions', 0),
             })
 
-    # ── 5. Build context for the template ─────────
+    # ── 5. Build context for the template 
     context = {
         'repo_name':    repo_data.get('full_name', f'{owner}/{repo}'),
         'description':  repo_data.get('description', 'No description provided.'),
