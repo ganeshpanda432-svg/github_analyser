@@ -4,7 +4,7 @@ A Django application to visualize public reposatory overview.
 
 ## Features
 
-- Upload Repo URL
+- Upload Repo URL(public)
 - Analyze
 - Get Repo information
 
