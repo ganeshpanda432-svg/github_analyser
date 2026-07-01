@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Analyzer{% endblock %}
+{% block content %}
+    <h1>Repo Analyzer</h1>
+
+    <div class="link-row" style="text-align:right; margin-bottom:20px; margin-top:-10px;">
+        {{ user.username }} &nbsp;|&nbsp; <a href="/logout/">Logout</a>
+    </div>
+
+    <form method="post" action="">
+        {% csrf_token %}
+        <label>GitHub Repository URL</label>
+        <input type="text" name="repo_url" placeholder="https://github.com/owner/repo" required>
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if error %}
+        <div class="error" style="margin-top:20px;">{{ error }}</div>
+    {% endif %}
+
+    {% if result %}
+        <div style="margin-top:28px; border-top:1px solid #1a2a4a; padding-top:20px;">
+            <p style="color:#4a7fc1; font-size:1rem; margin-bottom:14px;">
+                {{ owner }}/{{ repo }}
+            </p>
+            <p style="margin-bottom:8px;">⭐ Stars &nbsp;&nbsp; <span style="color:#7ab0f0;">{{ result.stars }}</span></p>
+            <p style="margin-bottom:16px;">🍴 Forks &nbsp;&nbsp; <span style="color:#7ab0f0;">{{ result.forks }}</span></p>
+
+            <label style="margin-bottom:10px; display:block;">Languages</label>
+            {% for lang, bytes in result.languages.items %}
+                <p style="font-size:0.85rem; color:#8899aa; margin-bottom:4px;">
+                    {{ lang }} &nbsp;—&nbsp; {{ bytes }} bytes
+                </p>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

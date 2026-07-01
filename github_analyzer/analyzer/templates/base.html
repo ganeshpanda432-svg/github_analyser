@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}GitHub Analyzer{% endblock %}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            padding: 40px;
+            background-color: #111111;
+            border: 1px solid #1a2a4a;
+            border-radius: 8px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            color: #4a7fc1;
+            margin-bottom: 28px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #1a2a4a;
+            padding-bottom: 14px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            color: #7a9cc1;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="url"] {
+            width: 100%;
+            padding: 10px 14px;
+            background-color: #0a0a0a;
+            border: 1px solid #1a2a4a;
+            border-radius: 4px;
+            color: #e0e0e0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 18px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            border-color: #2a5aaa;
+        }
+
+        button, .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 12px;
+            background-color: #1a3a7a;
+            color: #c8d8f0;
+            border: 1px solid #2a5aaa;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        button:hover, .btn:hover {
+            background-color: #2a5aaa;
+            border-color: #4a7fc1;
+        }
+
+        .link-row {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #556688;
+        }
+
+        .link-row a {
+            color: #4a7fc1;
+            text-decoration: none;
+        }
+
+        .link-row a:hover {
+            color: #7ab0f0;
+        }
+
+        .error {
+            background-color: #1a0a0a;
+            border: 1px solid #5a1a1a;
+            color: #f08080;
+            padding: 10px 14px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-bottom: 18px;
+        }
+
+        ul.errorlist {
+            list-style: none;
+            color: #f08080;
+            font-size: 0.8rem;
+            margin-top: -14px;
+            margin-bottom: 12px;
+        }
+
+        /* help text below fields */
+        .helptext {
+            font-size: 0.75rem;
+            color: #445566;
+            margin-top: -14px;
+            margin-bottom: 14px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
